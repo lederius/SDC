@@ -13,6 +13,8 @@ const pool = new Pool({
   port: process.env.PGPORT
 })
 
+//what if import cvs files then do partition to update db?
+
 pool.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");

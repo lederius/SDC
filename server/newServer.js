@@ -4,6 +4,24 @@ const axios = require('axios');
 const express = require('express');
 const app = express();
 
+//from originial server
+var compression = require('express-compression')
+const {questionRouter, postQuestionsRoute, updateHelpful, updateAnswer, addQuestion , reportAnswer, reportQuestion} = require('./questionRoutes.js')
+const bodyParser = require('body-parser');
+const basePath = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe';
+const reviewsRouter = require('./reviewsRoutes.js');
+
+
+//
+
+// Set up headers for API requests
+let params = {
+  headers: { Authorization: process.env.TOKEN }
+};
+
+// Set the port for the server to listen on
+const port = 3000;// original port
+//new port 9000
 
 // Use compression middleware to compress responses
 app.use(compression());
@@ -15,10 +33,7 @@ app.use(bodyParser.json());
 // Serve static files from the client's 'dist' directory
 app.use(express.static(path.join(__dirname, '..', '/client/dist')));
 
-// Set up headers for API requests
-let params = {
-  headers: { Authorization: process.env.TOKEN }
-};
+
 
 // Middleware to set authorization header
 app.use((req, res, next) => {
@@ -27,6 +42,10 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+
+app.use('/reviews', reviewsRouter);
+
 
 
 app.listen(process.env.PORT, (err) => {
