@@ -7,6 +7,7 @@ const answerHelpPath ='https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/an
 
 
 questionRouter = (req, res) => {
+  console.log('req in router', req);
   const url = basePath + req.params.product_id + "&count=50"
 
   return axios.get(url, {
@@ -14,6 +15,7 @@ questionRouter = (req, res) => {
       'authorization': req.headers.authorization
     }
   }).then((result) => {
+    console.log('result.data', result.data);
     return result.data
   }).catch((err) => console.error(err))
 };
@@ -55,6 +57,7 @@ updateHelpful = (req,res) => {
 }
 
 addQuestion = (req, res) => {
+  console.log('addQuestion!!')
   req.body.product_id = Number(req.params.product_id);
   console.log(req.body)
   axios.post(postPath, req.body,  {

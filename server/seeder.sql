@@ -10,7 +10,7 @@ CREATE TABLE Products (
 );
 
 CREATE TABLE  Questions (
-  question_id INT,
+  question_id SERIAL ,
   product_id INT,
   FOREIGN KEY(product_id) REFERENCES Products(product_id),
   question_body varchar(250),
@@ -68,3 +68,8 @@ COPY Photos(photo_id, answer_id, url)
 FROM '/Users/choke/Desktop/hack reactor/SDC/answers_photos.csv'
 DELIMITER ','
 CSV HEADER;
+
+--want to index columns being used
+-- CREATE INDEX index_questions ON Questions (product_id);
+-- CREATE INDEX index_answers ON Answers (answers_id);
+-- CREATE INDEX index_products ON Products (product_id);
