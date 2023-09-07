@@ -57,7 +57,6 @@ updateHelpful = (req,res) => {
 }
 
 addQuestion = (req, res) => {
-  console.log('addQuestion!!')
   req.body.product_id = Number(req.params.product_id);
   console.log(req.body)
   axios.post(postPath, req.body,  {

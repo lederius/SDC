@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS Products, Questions, Answers, Photos;
+DROP SEQUENCE IF EXISTS serial_question;
 
 CREATE TABLE Products (
   product_id INT PRIMARY KEY,
@@ -21,6 +22,11 @@ CREATE TABLE  Questions (
   question_helpfulness INT,
   PRIMARY KEY(question_id)
 );
+CREATE SEQUENCE serial_question
+    INCREMENT BY 111
+    START WITH 10000
+    OWNED BY Questions.question_id;
+
 
 CREATE TABLE Answers (
   answer_id INT PRIMARY KEY,
