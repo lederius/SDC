@@ -7,7 +7,7 @@ const answerHelpPath ='https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/an
 
 
 questionRouter = (req, res) => {
-  console.log('req in router', req);
+  //console.log('req in router', req);
   const url = basePath + req.params.product_id + "&count=50"
 
   return axios.get(url, {
@@ -15,14 +15,14 @@ questionRouter = (req, res) => {
       'authorization': req.headers.authorization
     }
   }).then((result) => {
-    console.log('result.data', result.data);
+    //console.log('result.data', result.data);
     return result.data
   }).catch((err) => console.error(err))
 };
 
 postQuestionsRoute = (req, res) => {
 const posturl = postPath + req.params.question_id + "/answers"
-console.log(req.body)
+console.log(postQuestionsRoute)
   axios.post(posturl, req.body, {
     headers: {
       'authorization': req.headers.authorization
@@ -36,6 +36,8 @@ console.log(req.body)
 
 updateAnswer = (req , res) => {
   const answerHelpUrl = answerHelpPath + req.params.answer_id + "/helpful"
+  //console.log('req.params in update', req.params);
+  //console.log('req.body in update', req.body);
   axios.put(answerHelpUrl, "test", {
     headers: {
       'authorization': req.headers.authorization
@@ -46,6 +48,7 @@ updateAnswer = (req , res) => {
 }
 
 updateHelpful = (req,res) => {
+  console.log('updateHelpful');
   const helpPath = postPath + req.params.question_id + "/helpful"
   axios.put(helpPath, "test", {
     headers: {
@@ -57,6 +60,7 @@ updateHelpful = (req,res) => {
 }
 
 addQuestion = (req, res) => {
+  console.log('addQuestoin');
   req.body.product_id = Number(req.params.product_id);
   console.log(req.body)
   axios.post(postPath, req.body,  {
@@ -69,6 +73,8 @@ addQuestion = (req, res) => {
 }
 
 reportQuestion = (req, res) => {
+  console.log('reportQuestion');
+  //console.log('req.params', req.params);
 const repQueUrl = postPath + req.params.question_id + "/report";
 
 axios.put(repQueUrl, '', {
@@ -79,6 +85,7 @@ axios.put(repQueUrl, '', {
 }
 
 reportAnswer = (req,res) => {
+  console.log('reportAnswer')
  const repAnsUrl = answerHelpPath + req.params.answer_id + "/report";
  axios.put(repAnsUrl, '', {
   headers: {

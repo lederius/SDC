@@ -6,8 +6,8 @@ const app = express();
 
 //from originial server
 var compression = require('express-compression')
-const {questionRouter, postQuestionsRoute} = require('./loadCSV.js');
-const {updateHelpful, updateAnswer, addQuestion , reportAnswer, reportQuestion} = require('./questionRoutes.js')
+const {questionRouter, postQuestionsRoute, addQuestion, updateAnswer, updateHelpful} = require('./loadCSV.js');
+const {reportAnswer, reportQuestion} = require('./questionRoutes.js')
 const bodyParser = require('body-parser');
 const basePath = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe';
 const reviewsRouter = require('./reviewsRoutes.js');
@@ -67,16 +67,18 @@ app.post("/questions/:question_id" , (req, res) => {
 })
 
 app.get("/questions/:product_id", (req,res) => {
-  console.log('question Route')
+  //console.log('question Route')
   questionRouter(req).then((result) => {
+    //console.log(result)
     res.send(result)
   })
-  console.log('res sent');
+  //console.log('res sent');
 })
 
 app.post("/addQuestion/:product_id", (req,res) => {
   console.log('add question');
   addQuestion(req)
+  console.log('finished');
 })
 
 app.put("/reportQuestion/:question_id", (req,res) => {

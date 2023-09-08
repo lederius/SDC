@@ -41,37 +41,45 @@ app.use((req, res, next) => {
 //Amelia's section
 app.use('/reviews', reviewsRouter);
 
-
 //--------------------------------------------------------------------------------------
 
 //Victor's section
 app.put("/helpful/:question_id", (req,res) => {
+  console.log('put helpful question')
   updateHelpful(req)
+
 })
 
 app.put("/helpful/:answer_id/answer", (req,res) => {
+  console.log('put helpful answer');
   updateAnswer(req)
 })
 
 app.post("/questions/:question_id" , (req, res) => {
+  console.log('post quest ques_id')
   postQuestionsRoute(req)
 })
 
 app.get("/questions/:product_id", (req,res) => {
+  console.log('get question product_id')
   questionRouter(req).then((result) => {
+    //console.log(result)
     res.send(result)
   })
 })
 
 app.post("/addQuestion/:product_id", (req,res) => {
+  console.log('post addques prod_id')
   addQuestion(req)
 })
 
 app.put("/reportQuestion/:question_id", (req,res) => {
+  console.log('reprtQue ques_id')
   reportQuestion(req)
 })
 
 app.put("/reportAnswer/:answer_id", (req,res) => {
+  console.log('put reportAns answ_id')
   reportAnswer(req)
 })
 

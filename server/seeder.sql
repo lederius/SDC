@@ -1,7 +1,4 @@
-DROP TABLE IF EXISTS Products, Questions, Answers, Photos;
-DROP SEQUENCE IF EXISTS serial_question;
-
-CREATE TABLE Products (
+CREATE TABLE IF NOT EXISTS Products (
   product_id INT PRIMARY KEY,
   name varchar(250),
   slogan varchar(250),
@@ -10,7 +7,7 @@ CREATE TABLE Products (
   default_price INT
 );
 
-CREATE TABLE  Questions (
+CREATE TABLE  IF NOT EXISTS Questions (
   question_id SERIAL ,
   product_id INT,
   FOREIGN KEY(product_id) REFERENCES Products(product_id),
@@ -22,13 +19,9 @@ CREATE TABLE  Questions (
   question_helpfulness INT,
   PRIMARY KEY(question_id)
 );
-CREATE SEQUENCE serial_question
-    INCREMENT BY 111
-    START WITH 10000
-    OWNED BY Questions.question_id;
 
 
-CREATE TABLE Answers (
+CREATE TABLE IF NOT EXISTS Answers (
   answer_id INT PRIMARY KEY,
   question_id INT,
   FOREIGN KEY(question_id) REFERENCES Questions(question_id),
@@ -40,7 +33,7 @@ CREATE TABLE Answers (
   answer_helpfulness INT
 );
 
-CREATE TABLE Photos (
+CREATE TABLE  IF NOT EXISTS Photos (
   photo_id INT PRIMARY KEY,
   answer_id INT,
   FOREIGN KEY(answer_id) REFERENCES Answers(answer_id),
@@ -75,6 +68,9 @@ FROM '/Users/choke/Desktop/hack reactor/SDC/answers_photos.csv'
 DELIMITER ','
 CSV HEADER;
 
+SELECT setval('questions_question_id_seq', (SELECT max(question_id) FROM Questions));
+SELECT setval('answers_answer_id_seq', (SELECT max(answer_id) FROM Answers));
+SELECT setval('photos_photo_id_seq', (SELECT max(photo_id) FROM Photos));
 --want to index columns being used
 -- CREATE INDEX index_questions ON Questions (product_id);
 -- CREATE INDEX index_answers ON Answers (answers_id);
