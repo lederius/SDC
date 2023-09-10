@@ -55,7 +55,7 @@ updateHelpful = (req,res) => {
       'authorization': req.headers.authorization
     }
   }).then((result) => {
-    console.log("result",result);
+    //console.log("result",result);
   }).catch((err) => console.error(err))
 }
 

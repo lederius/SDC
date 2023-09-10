@@ -6,8 +6,8 @@ const app = express();
 
 //from originial server
 var compression = require('express-compression')
-const {questionRouter, postQuestionsRoute, addQuestion, updateAnswer, updateHelpful} = require('./loadCSV.js');
-const {reportAnswer, reportQuestion} = require('./questionRoutes.js')
+const {questionRouter, postQuestionsRoute, reportQuestion, addQuestion, updateAnswer, updateHelpful} = require('./loadCSV.js');
+const {reportAnswer} = require('./questionRoutes.js')
 const bodyParser = require('body-parser');
 const basePath = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe';
 const reviewsRouter = require('./reviewsRoutes.js');
@@ -34,7 +34,7 @@ app.use(bodyParser.json());
 // Serve static files from the client's 'dist' directory
 app.use(express.static(path.join(__dirname, '..', '/client/dist')));
 
-
+app.use(express.static(path.join(__dirname, '../public')));
 
 // Middleware to set authorization header
 app.use((req, res, next) => {
@@ -63,7 +63,7 @@ app.put("/helpful/:answer_id/answer", (req,res) => {
 app.post("/questions/:question_id" , (req, res) => {
   console.log('postquest');
   postQuestionsRoute(req)
-  console.log('finished call')
+  //console.log('finished call')
 })
 
 app.get("/questions/:product_id", (req,res) => {

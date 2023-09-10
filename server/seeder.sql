@@ -1,5 +1,7 @@
+-- DROP TABLE IF EXISTS Products, Questions, Answers, Photos CASCADE;
+
 CREATE TABLE IF NOT EXISTS Products (
-  product_id INT PRIMARY KEY,
+  product_id SERIAL PRIMARY KEY,
   name varchar(250),
   slogan varchar(250),
   description varchar(750),
@@ -7,7 +9,7 @@ CREATE TABLE IF NOT EXISTS Products (
   default_price INT
 );
 
-CREATE TABLE  IF NOT EXISTS Questions (
+CREATE TABLE IF NOT EXISTS Questions (
   question_id SERIAL ,
   product_id INT,
   FOREIGN KEY(product_id) REFERENCES Products(product_id),
@@ -22,7 +24,7 @@ CREATE TABLE  IF NOT EXISTS Questions (
 
 
 CREATE TABLE IF NOT EXISTS Answers (
-  answer_id INT PRIMARY KEY,
+  answer_id SERIAL PRIMARY KEY,
   question_id INT,
   FOREIGN KEY(question_id) REFERENCES Questions(question_id),
   answer_body varchar(250),
@@ -33,8 +35,8 @@ CREATE TABLE IF NOT EXISTS Answers (
   answer_helpfulness INT
 );
 
-CREATE TABLE  IF NOT EXISTS Photos (
-  photo_id INT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS Photos (
+  photo_id SERIAL PRIMARY KEY,
   answer_id INT,
   FOREIGN KEY(answer_id) REFERENCES Answers(answer_id),
   url varchar(250)
@@ -72,6 +74,6 @@ SELECT setval('questions_question_id_seq', (SELECT max(question_id) FROM Questio
 SELECT setval('answers_answer_id_seq', (SELECT max(answer_id) FROM Answers));
 SELECT setval('photos_photo_id_seq', (SELECT max(photo_id) FROM Photos));
 --want to index columns being used
--- CREATE INDEX index_questions ON Questions (product_id);
--- CREATE INDEX index_answers ON Answers (answers_id);
--- CREATE INDEX index_products ON Products (product_id);
+CREATE INDEX IF NOT EXISTS index_questions ON Questions (product_id);
+CREATE INDEX IF NOT EXISTS index_answers ON Answers (answer_id);
+CREATE INDEX IF NOT EXISTS index_products ON Products (product_id);
