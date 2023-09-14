@@ -15,6 +15,11 @@ const pool = new Pool({
 })
 
 pool.connect(function(err) {
+  console.log('user: ', process.env.PGUSER)
+  console.log('host: ', process.env.PGHOST)
+  console.log('database: ', process.env.PGDATABASE)
+  console.log('password: ',process.env.PGPASSWORD)
+  console.log('port: ', process.env.PGPORT)
   if (err) throw err;
   console.log("Connected!");
 });
